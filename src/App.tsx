@@ -19,7 +19,6 @@ const App: React.FC = () => {
     fontFamily: 'Arial',
     color: '#000000',
     fontSize: 30,
-    // rotation: 0,
     x: 0,
     y: 0,
     image: null,

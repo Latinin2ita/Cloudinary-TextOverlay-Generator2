@@ -27,10 +27,6 @@ const LeftSideBar: React.FC<LeftSideBarProps> = ({ settings, updateSettings, set
     updateSettings({ fontSize: parseInt(e.target.value, 10) });
   };
 
-  // const handleRotationChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   updateSettings({ rotation: parseInt(e.target.value, 10) });
-  // };
-
   const handleXChange = (e: ChangeEvent<HTMLInputElement>) => {
     updateSettings({ x: parseInt(e.target.value, 10) });
   };
@@ -83,15 +79,6 @@ const LeftSideBar: React.FC<LeftSideBarProps> = ({ settings, updateSettings, set
           onChange={handleFontSizeChange}
         />
       </div>
-      {/* <div className="mb-3">
-        <label className="block text-sm font-medium">Rotation (deg):</label>
-        <input
-          type="number"
-          className="w-full border border-gray-300 rounded px-2 py-1"
-          value={settings.rotation}
-          onChange={handleRotationChange}
-        />
-      </div> */}
       <div className="mb-3">
         <label className="block text-sm font-medium">X Position (px):</label>
         <input

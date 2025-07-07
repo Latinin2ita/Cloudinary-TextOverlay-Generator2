@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo } from "react";
+import React, { useRef, useMemo } from "react";
 import { Settings } from "./App";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage } from "@cloudinary/react";
@@ -17,7 +17,6 @@ interface PlaygroundProps {
 
 const Playground: React.FC<PlaygroundProps> = ({ settings, image }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [_, setDims] = useState({ width: 0, height: 0 });
 
   // 1) Only initialize Cloudinary once
   const cld = useMemo(
@@ -28,7 +27,7 @@ const Playground: React.FC<PlaygroundProps> = ({ settings, image }) => {
     []
   );
 
-  // 3) Create the “top” image pipeline (background removal) separately
+  // 2) Create the “top” image pipeline (background removal) separately
   const topImage = useMemo(
     () =>
       cld
@@ -39,7 +38,7 @@ const Playground: React.FC<PlaygroundProps> = ({ settings, image }) => {
   );
 
 
-  // 2) Create a fresh “background + text overlay” pipeline on every relevant change
+  // 3) Create a fresh “background + text overlay” pipeline on every relevant change
   const backgroundWithText = useMemo(() => {
     const img = cld.image(image);
 
@@ -76,41 +75,14 @@ const Playground: React.FC<PlaygroundProps> = ({ settings, image }) => {
   ]);
 
 
-  // Measure container once (or when the image URL changes)
-  useEffect(() => {
-    if (containerRef.current) {
-      const { clientWidth, clientHeight } = containerRef.current;
-      setDims({ width: clientWidth, height: clientHeight });
-    }
-  }, [image]);
-
-  const handleImageLoad = () => {
-    if (!containerRef.current) return;
-    const { clientWidth, clientHeight } = containerRef.current;
-    setDims((prev) =>
-      prev.width === clientWidth && prev.height === clientHeight
-        ? prev
-        : { width: clientWidth, height: clientHeight }
-    );
-  };
-  // console.log('backgroundWithText', backgroundWithText.toURL())
-
   return (
     <div className="flex-1 p-5 flex justify-center items-center flex-col gap-4">
       {image ? (
         <div ref={containerRef} className="relative inline-block overflow-hidden">
-          {/* Main background + text */}
           <AdvancedImage
             cldImg={backgroundWithText}
             alt="Background with Text"
             className="block max-w-full h-auto"
-            onLoad={handleImageLoad}
-          />
-          {/* Foreground effect */}
-          <AdvancedImage
-            cldImg={topImage}
-            alt="Foreground Effect"
-            className="absolute top-0 left-0 w-full h-full z-20"
           />
         </div>
       ) : (
