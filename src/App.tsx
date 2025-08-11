@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import LeftSideBar from './LeftSideBar';
 import Playground from './Playground';
 
+const uwConfig = {
+    cloudName: "dxebuolgg",
+    uploadPreset: "Pills of Wisdom",
+    sources: ["local"],
+    multiple: false,
+    tags: ["text-overlay"],
+  };
+
 export interface Settings {
   text: string;
   fontFamily: string;
