@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// metti qui il tuo host esatto (quello mostrato nel messaggio “Blocked request…”)
 const RAILWAY_HOST = 'cloudinary-textoverlay-generator2-production.up.railway.app'
 
 export default defineConfig({
